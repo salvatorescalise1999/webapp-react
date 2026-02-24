@@ -1,56 +1,40 @@
-import { Link } from "react-router-dom"
+// importiamo axios
+import axios from "axios"
+
+// import di state e effect
+import { useState, useEffect } from "react"
+
+import { Link, useParams } from "react-router-dom"
 
 // importiamo componente CardReview
 import CardReview from "../components/CardReview"
 
+const endpoint = "http://localhost:3000/api/movies/";
 
-// dati temporanei per test props
-const movie = {
-    "id": 4,
-    "title": "The Matrix",
-    "director": "The Wachowskis",
-    "genre": "Action",
-    "release_year": 1999,
-    "abstract": "A hacker discovers the truth about his reality and his role in the war against its controllers.",
-    "image": "http://localhost:3000/img/movies/the_godfather.jpg",
-    "created_at": "2024-11-29T10:40:13.000Z",
-    "updated_at": "2025-05-22T10:55:27.000Z",
-    "reviews": [
-        {
-            "id": 10,
-            "movie_id": 4,
-            "name": "Jack",
-            "vote": 5,
-            "text": "A revolutionary film in every sense.",
-            "created_at": "2024-11-29T10:40:13.000Z",
-            "updated_at": "2024-11-29T10:40:13.000Z"
-        },
-        {
-            "id": 11,
-            "movie_id": 4,
-            "name": "Karen",
-            "vote": 4,
-            "text": "Great action and a thought-provoking plot.",
-            "created_at": "2024-11-29T10:40:13.000Z",
-            "updated_at": "2024-11-29T10:40:13.000Z"
-        },
-        {
-            "id": 12,
-            "movie_id": 4,
-            "name": "Liam",
-            "vote": 4,
-            "text": "A unique take on reality and perception.",
-            "created_at": "2024-11-29T10:40:13.000Z",
-            "updated_at": "2024-11-29T10:40:13.000Z"
-        }
-    ]
-}
 
 const FilmPage = () => {
 
-     // funzione di rendering del listato dei libri
+    // prendiamo id film da url rotta
+    const { id } = useParams();
+
+    // settiamo la var di stato per il film
+    const [movie, setMovie] = useState({});
+
+    // funzione che gestisce la chiamata alla rotta show di BE
+    const fetchMovie = () => {
+        axios.get(endpoint + id)
+            .then(res => { setMovie(res.data); })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+    // richiamo funzione di fetch al montaggio della page
+    useEffect(fetchMovie, []);
+
+    // funzione di rendering del listato dei libri
     const rederReviews = () => {
-        return movie.reviews.map(review => {
+        return movie.reviews?.map(review => {
             return (
                 <CardReview reviewProp={review} key={review.id} />
             )
@@ -58,11 +42,11 @@ const FilmPage = () => {
     }
 
     return (
-       
-       <>
+
+        <>
             <header id="movie" className="border-bottom border-1 mb-3">
                 <div className="d-flex mb-3">
-                    <img src= {movie.image} alt={movie.title} />
+                    <img src={movie.image} alt={movie.title} />
                 </div>
                 <h1>{movie.title}</h1>
                 <h3 className="text-muted"><i>By {movie.director}</i></h3>
