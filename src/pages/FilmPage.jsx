@@ -9,6 +9,9 @@ import { Link, useParams, useNavigate } from "react-router-dom"
 // importiamo componente CardReview
 import CardReview from "../components/CardReview"
 
+// import componente per form review
+import ReviewForm from "../components/ReviewForm";
+
 const endpoint = "http://localhost:3000/api/movies/";
 
 
@@ -63,6 +66,11 @@ const FilmPage = () => {
 
                 {rederReviews()}
 
+            </section>
+             <section>
+
+                <ReviewForm />
+                
             </section>
             <footer className="border-top border-1 pt-2 mb-3 d-flex justify-content-end">
                 <Link className="btn btn-secondary" to="/">Back to home</Link>
