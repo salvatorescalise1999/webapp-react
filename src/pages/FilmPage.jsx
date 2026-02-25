@@ -69,8 +69,8 @@ const FilmPage = () => {
             </section>
              <section>
 
-                <ReviewForm />
-                
+                <ReviewForm movie_id={movie.id} />
+
             </section>
             <footer className="border-top border-1 pt-2 mb-3 d-flex justify-content-end">
                 <Link className="btn btn-secondary" to="/">Back to home</Link>
