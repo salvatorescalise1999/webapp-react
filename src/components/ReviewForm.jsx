@@ -10,12 +10,16 @@ const ReviewForm = (props) => {
     // creiamo stringa di ref all'endpoint del BE
     const endpoint = `http://localhost:3000/api/movies/${movie_id}/reviews`;
 
-    // var di stato per gestire oggetto dei valori input form
-    const [formData, setFormData] = useState({
+
+    // creo oggetto per valori di default form
+    const initialFormData = {
         name: "",
         text: "",
         vote: 0
-    });
+    };
+
+    // var di stato per gestire oggetto dei valori input form
+    const [formData, setFormData] = useState(initialFormData);
 
 
     // funzione di gestione dei dati del form
@@ -32,7 +36,9 @@ const ReviewForm = (props) => {
         e.preventDefault();
         // gestisci la chiamata in post all'endpoint in axios
         axios.post(endpoint, formData, { headers: { 'Content-Type': 'application/json' } })
-            .then(() => { console.log("tuttt'apposto!") })
+            .then(() => {
+                setFormData(initialFormData);
+            })
             .catch((err) => {
                 console.log(err);
             })
