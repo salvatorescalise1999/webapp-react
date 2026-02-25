@@ -45,7 +45,7 @@ const HomePage = () => {
             <h2><i>The boolean nerd film community</i></h2>
 
             <div>
-                <div className="row row-cols-3 mt-4">
+                <div className="row row-cols-3 mt-4 mb-4 g-4">
                     {rederMovies()}
 
                 </div>
