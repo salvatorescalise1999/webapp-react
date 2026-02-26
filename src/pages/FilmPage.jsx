@@ -6,6 +6,9 @@ import { useState, useEffect } from "react"
 
 import { Link, useParams, useNavigate } from "react-router-dom"
 
+// import hook custom del contesto globale
+import { useGlobal } from "../contexts/GlobalContext";
+
 // importiamo componente CardReview
 import CardReview from "../components/CardReview"
 
@@ -16,6 +19,12 @@ const endpoint = "http://localhost:3000/api/movies/";
 
 
 const FilmPage = () => {
+
+    // attivo l'utilizzo del/dei valore/i messi a disposizione del contesto globale
+    const { setIsLoading } = useGlobal();
+
+    // funzione per dellay caricamento TEMP (solo come test)
+    // const setLoadingFalse = () => { setIsLoading(false) 
 
     // prendiamo id film da url rotta
     const { id } = useParams();
@@ -28,12 +37,17 @@ const FilmPage = () => {
 
     // funzione che gestisce la chiamata alla rotta show di BE
     const fetchMovie = () => {
+
+        // parte la chimata cambio var stato context di conseguenza
+        setIsLoading(true);
+
         axios.get(endpoint + id)
             .then(res => { setMovie(res.data); })
             .catch(err => {
                 console.log(err);
                 if (err.status = 404) redirect('/404');
             })
+            .finally(setIsLoading(false))
     }
 
     // richiamo funzione di fetch al montaggio della page
@@ -67,7 +81,7 @@ const FilmPage = () => {
                 {rederReviews()}
 
             </section>
-             <section>
+            <section>
 
                 <ReviewForm movie_id={movie.id} reloadReviews={fetchMovie} />
 
