@@ -6,7 +6,7 @@
 
 .card {
   border: none;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease;
 }
 
@@ -22,5 +22,36 @@
 .card-text {
   font-style: italic;
   color: #6c757d;
+}
+
+.custom-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  padding: 1rem 2rem;
+
+  background: rgba(15, 15, 15, 0.8);
+  backdrop-filter: blur(10px);
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+.custom-brand {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-decoration: none;
+
+  background: linear-gradient(45deg, #3b82f6, #9333ea);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  transition: all 0.3s ease;
+}
+
+.custom-brand:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
 }
 
